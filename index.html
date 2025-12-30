@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siamo | Hybrid PMC & Construction Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Sarabun', 'Noto Sans SC', sans-serif; }
+        .chart-container { 
+            position: relative; 
+            width: 100%; 
+            max-width: 600px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 300px; 
+            max-height: 400px; 
+        }
+        .step-card { transition: all 0.3s ease; }
+        .step-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .lang-btn.active { background-color: #0f766e; color: white; border-color: #0f766e; }
+    </style>
+    <!-- Chosen Palette: Teal & Slate (Professional, Trustworthy, Modern) + Amber Accent (Construction) -->
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navigation / Header -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <!-- Placeholder Logo Icon -->
+                    <div class="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">S</div>
+                    <span class="text-2xl font-bold text-teal-700">Siamo <span class="text-slate-500 text-lg font-light hidden sm:inline">| Hybrid Platform</span></span>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <!-- Menu Items -->
+                    <div class="hidden md:flex space-x-4">
+                        <button onclick="scrollToSection('structure')" class="nav-item text-slate-600 hover:text-teal-600 px-3 py-2 text-sm font-medium" data-key="nav_structure">Structure</button>
+                        <button onclick="scrollToSection('roles')" class="nav-item text-slate-600 hover:text-teal-600 px-3 py-2 text-sm font-medium" data-key="nav_roles">Roles (JD)</button>
+                        <button onclick="scrollToSection('workflow')" class="nav-item text-slate-600 hover:text-teal-600 px-3 py-2 text-sm font-medium" data-key="nav_workflow">Workflow</button>
+                    </div>
+
+                    <!-- Language Switcher -->
+                    <div class="flex space-x-1 border-l pl-4 border-slate-200">
+                        <button onclick="setLanguage('th')" id="lang-th" class="lang-btn px-2 py-1 text-xs font-bold rounded border border-slate-300 hover:bg-slate-100 transition">TH</button>
+                        <button onclick="setLanguage('en')" id="lang-en" class="lang-btn px-2 py-1 text-xs font-bold rounded border border-slate-300 hover:bg-slate-100 transition">EN</button>
+                        <button onclick="setLanguage('cn')" id="lang-cn" class="lang-btn px-2 py-1 text-xs font-bold rounded border border-slate-300 hover:bg-slate-100 transition">CN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-slate-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4" data-key="hero_title">ระบบบริหารทรัพย์สิน & ก่อสร้าง (Hybrid Organization)</h1>
+            <p class="text-slate-300 max-w-2xl mx-auto text-lg" data-key="hero_desc">
+                โมเดลธุรกิจที่ผสานความคล่องตัวของ Tech Platform เข้ากับความละเอียดของงาน Construction
+            </p>
+        </div>
+    </div>
+
+    <!-- Section 1: Overview & Structure -->
+    <div id="structure" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-slate-800 border-l-4 border-teal-500 pl-4" data-key="sec1_title">1. ภาพรวมโครงสร้างองค์กร</h2>
+            <p class="mt-2 text-slate-600" data-key="sec1_desc">
+                โครงสร้างแบ่งเป็น 3 ส่วนหลักภายใต้ CEO เพื่อแยกกำไรขาดทุน (P&L) ชัดเจน
+            </p>
+        </div>
+
+        <!-- Interactive Org Chart Diagram -->
+        <div class="bg-white p-6 rounded-xl shadow-lg overflow-x-auto">
+            <div class="min-w-[800px] flex flex-col items-center">
+                <!-- CEO Level -->
+                <div onclick="selectDept('ceo')" class="cursor-pointer bg-slate-800 text-white px-8 py-4 rounded-lg shadow-md hover:bg-slate-700 transition w-64 text-center z-10 relative">
+                    <div class="font-bold text-lg">CEO</div>
+                    <div class="text-xs text-slate-300">Chief Executive Officer</div>
+                </div>
+                
+                <!-- Connector Lines -->
+                <div class="h-8 w-0.5 bg-slate-300"></div>
+                <div class="w-[80%] h-0.5 bg-slate-300 relative">
+                    <div class="absolute left-0 top-0 h-4 w-0.5 bg-slate-300 transform translate-y-full"></div> 
+                    <div class="absolute left-1/3 top-0 h-4 w-0.5 bg-slate-300 transform translate-y-full"></div>
+                    <div class="absolute right-1/3 top-0 h-4 w-0.5 bg-slate-300 transform translate-y-full"></div>
+                    <div class="absolute right-0 top-0 h-4 w-0.5 bg-slate-300 transform translate-y-full"></div>
+                </div>
+                <div class="h-4 w-full"></div>
+
+                <!-- C-Level Row -->
+                <div class="flex justify-between w-[90%] gap-4">
+                    <!-- Construction -->
+                    <div onclick="selectDept('construction')" class="cursor-pointer flex-1 bg-amber-50 border border-amber-200 p-4 rounded-lg hover:shadow-md transition text-center group">
+                        <div class="text-amber-700 font-bold group-hover:scale-105 transition" data-key="role_hoc">Head of Construction</div>
+                        <div class="text-xs text-slate-500 mt-1" data-key="role_hoc_sub">The Builder</div>
+                    </div>
+                    
+                    <!-- Platform -->
+                    <div onclick="selectDept('platform')" class="cursor-pointer flex-1 bg-teal-50 border border-teal-200 p-4 rounded-lg hover:shadow-md transition text-center group">
+                        <div class="text-teal-700 font-bold group-hover:scale-105 transition" data-key="role_coo">COO (Platform)</div>
+                        <div class="text-xs text-slate-500 mt-1" data-key="role_coo_sub">The Operator</div>
+                    </div>
+
+                    <!-- Tech -->
+                    <div onclick="selectDept('tech')" class="cursor-pointer flex-1 bg-blue-50 border border-blue-200 p-4 rounded-lg hover:shadow-md transition text-center group">
+                        <div class="text-blue-700 font-bold group-hover:scale-105 transition" data-key="role_cto">CTO (Tech)</div>
+                        <div class="text-xs text-slate-500 mt-1" data-key="role_cto_sub">The Enabler</div>
+                    </div>
+
+                    <!-- Finance -->
+                    <div onclick="selectDept('finance')" class="cursor-pointer flex-1 bg-purple-50 border border-purple-200 p-4 rounded-lg hover:shadow-md transition text-center group">
+                        <div class="text-purple-700 font-bold group-hover:scale-105 transition" data-key="role_cfo">CFO (Support)</div>
+                        <div class="text-xs text-slate-500 mt-1" data-key="role_cfo_sub">The Controller</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Detail Box -->
+            <div id="dept-detail" class="mt-8 bg-slate-50 p-6 rounded-lg border border-slate-200">
+                <h3 class="font-bold text-lg text-slate-800 mb-2" id="dept-title">...</h3>
+                <p class="text-slate-600 text-sm leading-relaxed" id="dept-desc">...</p>
+                <div class="mt-4 flex flex-wrap gap-2" id="dept-teams"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 2: Job Descriptions & Roles -->
+    <div id="roles" class="bg-slate-100 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-800 border-l-4 border-teal-500 pl-4" data-key="sec2_title">2. เจาะลึกหน้าที่ความรับผิดชอบ (JD)</h2>
+                <p class="mt-2 text-slate-600" data-key="sec2_desc">รายละเอียดบทบาทสำคัญ (Key Roles) ที่ขับเคลื่อนองค์กร</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Sidebar Selector -->
+                <div class="w-full lg:w-1/3 bg-white rounded-xl shadow-md p-4 h-fit">
+                    <h3 class="font-bold text-slate-700 mb-4 px-2" data-key="select_position">Select Position</h3>
+                    <div class="space-y-2">
+                        <button onclick="renderJD('hoc')" id="btn-hoc" class="w-full text-left px-4 py-3 rounded-lg bg-amber-50 text-amber-900 border-l-4 border-amber-500 transition hover:bg-amber-100 font-medium">Head of Construction</button>
+                        <button onclick="renderJD('coo')" id="btn-coo" class="w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 border-l-4 border-transparent hover:border-slate-300 transition">COO - Platform Ops</button>
+                        <button onclick="renderJD('cto')" id="btn-cto" class="w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 border-l-4 border-transparent hover:border-slate-300 transition">CTO - Technology</button>
+                        <button onclick="renderJD('cfo')" id="btn-cfo" class="w-full text-left px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 border-l-4 border-transparent hover:border-slate-300 transition">CFO - Financial Controller</button>
+                    </div>
+                </div>
+
+                <!-- Main Content Area -->
+                <div class="w-full lg:w-2/3 bg-white rounded-xl shadow-md p-6 lg:p-8" id="jd-content-area">
+                    <!-- Content injected via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: The Handshake (Process Flow) -->
+    <div id="workflow" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-slate-800 border-l-4 border-teal-500 pl-4" data-key="sec3_title">3. กระบวนการทำงานร่วมกัน</h2>
+            <p class="mt-2 text-slate-600" data-key="sec3_desc">การเชื่อมต่อระหว่างงานก่อสร้างและงานบริหาร</p>
+        </div>
+
+        <!-- Interactive Stepper -->
+        <div class="relative">
+            <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-slate-200 -translate-y-1/2 z-0"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
+                <!-- Step 1 -->
+                <div onclick="showStepDetail(1)" class="step-card cursor-pointer bg-white p-6 rounded-xl border-2 border-slate-100 hover:border-teal-400">
+                    <div class="w-10 h-10 bg-teal-100 text-teal-700 rounded-full flex items-center justify-center font-bold mb-4">1</div>
+                    <h3 class="font-bold text-slate-800 mb-2" data-key="step1_title">Feasibility</h3>
+                    <p class="text-sm text-slate-500" data-key="step1_short">Platform to Construction</p>
+                </div>
+                <!-- Step 2 -->
+                <div onclick="showStepDetail(2)" class="step-card cursor-pointer bg-white p-6 rounded-xl border-2 border-slate-100 hover:border-amber-400">
+                    <div class="w-10 h-10 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-bold mb-4">2</div>
+                    <h3 class="font-bold text-slate-800 mb-2" data-key="step2_title">Construction</h3>
+                    <p class="text-sm text-slate-500" data-key="step2_short">Control Cost & Time</p>
+                </div>
+                <!-- Step 3 -->
+                <div onclick="showStepDetail(3)" class="step-card cursor-pointer bg-white p-6 rounded-xl border-2 border-slate-100 hover:border-blue-400">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold mb-4">3</div>
+                    <h3 class="font-bold text-slate-800 mb-2" data-key="step3_title">Handover & QA</h3>
+                    <p class="text-sm text-slate-500" data-key="step3_short">Ops Check 24hr</p>
+                </div>
+                <!-- Step 4 -->
+                <div onclick="showStepDetail(4)" class="step-card cursor-pointer bg-white p-6 rounded-xl border-2 border-slate-100 hover:border-purple-400">
+                    <div class="w-10 h-10 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center font-bold mb-4">4</div>
+                    <h3 class="font-bold text-slate-800 mb-2" data-key="step4_title">Live & Maintain</h3>
+                    <p class="text-sm text-slate-500" data-key="step4_short">Maintenance Ticket</p>
+                </div>
+            </div>
+
+            <!-- Step Detail Panel -->
+            <div id="step-detail-panel" class="mt-8 bg-teal-50 border border-teal-100 p-6 rounded-lg hidden">
+                <h4 id="step-title" class="font-bold text-teal-800 text-lg mb-2"></h4>
+                <p id="step-desc" class="text-slate-700"></p>
+                <div class="mt-4 p-4 bg-white rounded border border-teal-100">
+                    <span class="font-semibold text-xs uppercase tracking-wider text-slate-400" data-key="ksf_label">Key Success Factor</span>
+                    <p id="step-kpi" class="text-teal-700 font-medium mt-1"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4: Success Metrics Chart -->
+    <div class="bg-slate-50 py-12 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6" data-key="sec4_title">ความสัมพันธ์ของข้อมูล (Data Insights)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Chart Container -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="font-bold text-slate-700 mb-4 text-center" data-key="chart_title">Impact of Renovation Speed on ROI</h3>
+                    <div class="chart-container">
+                        <canvas id="kpiChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-slate-400 mt-2" data-key="chart_caption">Data simulation showing Construction speed vs Revenue start</p>
+                </div>
+
+                <!-- Insight Text -->
+                <div class="flex flex-col justify-center space-y-4">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-500">
+                        <h4 class="font-bold text-slate-800" data-key="insight1_title">Time-to-Market is King</h4>
+                        <p class="text-slate-600 text-sm mt-1" data-key="insight1_desc">
+                            ยิ่งงานก่อสร้างเสร็จเร็วเท่าไหร่ รายได้จาก Platform จะเริ่มเร็วขึ้นเท่านั้น
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+                        <h4 class="font-bold text-slate-800" data-key="insight2_title">Zero Defect = High Occupancy</h4>
+                        <p class="text-slate-600 text-sm mt-1" data-key="insight2_desc">
+                            การตรวจรับงานที่เข้มงวด ช่วยลดเวลา Downtime ในการปิดห้องซ่อมภายหลัง
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p data-key="footer_copy">© 2025 Siamo - Hybrid Property & Construction Platform</p>
+            <p class="text-sm mt-2 text-teal-500 font-medium">Credit by nothng9</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Translations ---
+        const translations = {
+            th: {
+                nav_structure: "โครงสร้างองค์กร",
+                nav_roles: "ตำแหน่งงาน (JD)",
+                nav_workflow: "กระบวนการทำงาน",
+                hero_title: "Siamo | ระบบบริหารทรัพย์สิน & ก่อสร้าง",
+                hero_desc: "โมเดลธุรกิจที่ผสานความคล่องตัวของ Tech Platform เข้ากับความละเอียดของงาน Construction เพื่อเปลี่ยนทรัพย์สินให้เป็นรายได้สูงสุด",
+                sec1_title: "1. ภาพรวมโครงสร้างองค์กร",
+                sec1_desc: "โครงสร้างแบ่งเป็น 3 ส่วนหลักภายใต้ CEO เพื่อแยกกำไรขาดทุน (P&L) ชัดเจน",
+                role_hoc: "Head of Construction", role_hoc_sub: "ผู้สร้าง (Hard Services)",
+                role_coo: "COO (Platform)", role_coo_sub: "ผู้บริหาร (Business)",
+                role_cto: "CTO (Tech)", role_cto_sub: "ผู้สร้างระบบ (System)",
+                role_cfo: "CFO (Support)", role_cfo_sub: "ผู้คุมเงิน (Controller)",
+                sec2_title: "2. เจาะลึกหน้าที่ความรับผิดชอบ (JD)",
+                sec2_desc: "รายละเอียดบทบาทสำคัญ (Key Roles) ที่ขับเคลื่อนองค์กร",
+                select_position: "เลือกตำแหน่ง",
+                sec3_title: "3. กระบวนการทำงานร่วมกัน",
+                sec3_desc: "จุดตายของธุรกิจนี้คือรอยต่อระหว่าง 'งานช่าง' และ 'งานบริการ' นี่คือ Workflow ที่ออกแบบมาเพื่อปิดช่องว่างนั้น",
+                step1_title: "Renovation Feasibility", step1_short: "Platform ส่งข้อมูลให้ช่าง",
+                step2_title: "Construction Phase", step2_short: "คุม Cost & Time",
+                step3_title: "Handover & QA", step3_short: "Ops ตรวจรับใน 24 ชม.",
+                step4_title: "Live & Maintain", step4_short: "แจ้งซ่อมผ่าน Ticket",
+                ksf_label: "ปัจจัยความสำเร็จ (Key Success Factor)",
+                sec4_title: "ความสัมพันธ์ของข้อมูล (Data Insights)",
+                chart_title: "ผลกระทบของความเร็วก่อสร้างต่อ ROI",
+                chart_caption: "ข้อมูลจำลองแสดงความสัมพันธ์ระหว่างระยะเวลาก่อสร้างและรายได้",
+                insight1_title: "เวลาคือเงิน (Time-to-Market)",
+                insight1_desc: "ยิ่งงานก่อสร้างเสร็จเร็ว (แท่งสีส้มลดลง) รายได้จาก Platform (เส้นสีเขียว) จะเริ่มเร็วขึ้น ทำให้ ROI สูงขึ้น",
+                insight2_title: "Zero Defect = รายได้ต่อเนื่อง",
+                insight2_desc: "การตรวจรับงาน (QA) ที่เข้มงวด ช่วยลดเวลา Downtime ในการปิดห้องซ่อมภายหลัง ทำให้ Occupancy Rate เสถียร",
+                footer_copy: "© 2025 Siamo - ระบบบริหารทรัพย์สินและก่อสร้างแบบไฮบริด",
+                
+                // Dept Data
+                dept_default_title: "เลือกหน่วยงานด้านบนเพื่อดูรายละเอียด",
+                dept_default_desc: "โครงสร้างนี้ออกแบบมาเพื่อแก้ปัญหาความขัดแย้งระหว่างงานบริหารแพลตฟอร์มที่ต้องรวดเร็ว กับงานก่อสร้างที่ต้องรอบคอบ",
+
+                // Chart Labels
+                chart_label_days: "ระยะเวลาก่อสร้าง (วัน)",
+                chart_label_rev: "ดัชนีรายได้เริ่มแรก",
+            },
+            en: {
+                nav_structure: "Org Structure",
+                nav_roles: "Job Descriptions",
+                nav_workflow: "Workflow",
+                hero_title: "Siamo | PMC & Construction Hybrid Platform",
+                hero_desc: "A business model merging Tech Platform agility with Construction precision to maximize asset yield.",
+                sec1_title: "1. Organizational Overview",
+                sec1_desc: "Structure divided into 3 main units under the CEO to ensure clear Profit & Loss (P&L) accountability.",
+                role_hoc: "Head of Construction", role_hoc_sub: "The Builder",
+                role_coo: "COO (Platform)", role_coo_sub: "The Operator",
+                role_cto: "CTO (Tech)", role_cto_sub: "The Enabler",
+                role_cfo: "CFO (Support)", role_cfo_sub: "The Controller",
+                sec2_title: "2. Key Job Descriptions (JD)",
+                sec2_desc: "Deep dive into the key roles driving the organization.",
+                select_position: "Select Position",
+                sec3_title: "3. Collaborative Workflow",
+                sec3_desc: "Bridging the gap between 'Hard Services' and 'Hospitality' is crucial. This workflow closes that gap.",
+                step1_title: "Renovation Feasibility", step1_short: "Platform sends data to Const.",
+                step2_title: "Construction Phase", step2_short: "Control Cost & Time",
+                step3_title: "Handover & QA", step3_short: "Ops accepts in 24hrs",
+                step4_title: "Live & Maintain", step4_short: "Ticket Maintenance",
+                ksf_label: "Key Success Factor",
+                sec4_title: "Data Insights",
+                chart_title: "Impact of Renovation Speed on ROI",
+                chart_caption: "Simulation showing correlation between construction speed and revenue start.",
+                insight1_title: "Time-to-Market is King",
+                insight1_desc: "The faster construction finishes (orange bar drops), the sooner platform revenue begins (green line), boosting ROI.",
+                insight2_title: "Zero Defect = High Occupancy",
+                insight2_desc: "Strict QA reduces downtime for repairs later, ensuring stable Occupancy Rates.",
+                footer_copy: "© 2025 Siamo - Hybrid Property & Construction Platform",
+
+                dept_default_title: "Select a department above for details",
+                dept_default_desc: "Designed to resolve conflicts between fast-paced platform ops and detailed construction work.",
+
+                chart_label_days: "Days to Complete",
+                chart_label_rev: "Revenue Start Index",
+            },
+            cn: {
+                nav_structure: "组织结构",
+                nav_roles: "职位描述 (JD)",
+                nav_workflow: "工作流程",
+                hero_title: "Siamo | 物业管理与建筑混合平台",
+                hero_desc: "一种结合科技平台灵活性与建筑工程精密性的商业模式，旨在最大化资产收益。",
+                sec1_title: "1. 组织结构概览",
+                sec1_desc: "在CEO领导下分为三个主要部门，以确保清晰的盈亏（P&L）责任。",
+                role_hoc: "建筑总监", role_hoc_sub: "建设者 (Hard Services)",
+                role_coo: "首席运营官 (平台)", role_coo_sub: "运营者 (Business)",
+                role_cto: "首席技术官", role_cto_sub: "赋能者 (System)",
+                role_cfo: "首席财务官", role_cfo_sub: "控制者 (Money)",
+                sec2_title: "2. 关键职位描述 (JD)",
+                sec2_desc: "深入了解推动组织发展的关键角色。",
+                select_position: "选择职位",
+                sec3_title: "3. 协作工作流程",
+                sec3_desc: "弥合“硬服务”与“酒店服务”之间的差距至关重要。此流程旨在填补这一空白。",
+                step1_title: "装修可行性", step1_short: "平台发送数据给建筑部",
+                step2_title: "施工阶段", step2_short: "控制成本与时间",
+                step3_title: "移交与质检", step3_short: "运营部24小时内验收",
+                step4_title: "运营与维护", step4_short: "工单维护系统",
+                ksf_label: "关键成功因素",
+                sec4_title: "数据洞察",
+                chart_title: "装修速度对投资回报率(ROI)的影响",
+                chart_caption: "模拟数据显示施工速度与收入开始时间的相关性。",
+                insight1_title: "上市时间为王",
+                insight1_desc: "施工完成得越快（橙色柱下降），平台收入开始得越早（绿线），从而提高ROI。",
+                insight2_title: "零缺陷 = 高入住率",
+                insight2_desc: "严格的质检减少了后期维修的停机时间，确保稳定的入住率。",
+                footer_copy: "© 2025 Siamo - 混合型物业与建筑平台",
+
+                dept_default_title: "请选择上方部门查看详情",
+                dept_default_desc: "旨在解决快节奏平台运营与精细建筑工作之间的冲突。",
+
+                chart_label_days: "完工天数",
+                chart_label_rev: "收入起始指数",
+            }
+        };
+
+        // --- Multi-language Data Objects ---
+        const contentData = {
+            th: {
+                depts: {
+                    'ceo': { title: 'Chief Executive Officer (CEO)', desc: 'ผู้ดูแลภาพรวม วิสัยทัศน์ และการจัดสรรงบประมาณระหว่าง Tech และ Construction', teams: ['Strategy', 'Investor Relations'] },
+                    'construction': { title: 'Construction & Renovation Unit', desc: 'หน่วยงาน Hard Services เปลี่ยนทรัพย์สินให้พร้อมทำเงิน คุม Cost, Time, Quality', teams: ['Design', 'QS', 'Project Mgt', 'Facility'] },
+                    'platform': { title: 'Platform & Commercial Unit', desc: 'หน่วยงานหาเงินหลัก ดูแล Supply (เจ้าของห้อง) และ Demand (ผู้เช่า)', teams: ['Host Success', 'Guest Exp', 'Housekeeping', 'Marketing'] },
+                    'tech': { title: 'Technology & Product', desc: 'ผู้สร้างเครื่องมือ (Enabler) เพื่อให้ธุรกิจ Scale ได้ พัฒนาระบบ Booking & PMS', teams: ['Product', 'Engineering', 'Data', 'UX/UI'] },
+                    'finance': { title: 'Central Services', desc: 'หน่วยงานสนับสนุน ดูแลบัญชีแยก Cost Center และ Legal/Compliance', teams: ['Accounting', 'HR', 'Legal'] }
+                },
+                jds: {
+                    'hoc': { role: 'Head of Construction', tagline: 'The Builder', overview: 'บริหารงานก่อสร้างเชิงธุรกิจ เปลี่ยนทรัพย์สินเดิมให้เป็นเงินเร็วที่สุด', responsibilities: ['Renovation Strategy: วางแผนปรับปรุง', 'Cost Control: คุม CAPEX', 'Timeline Mgt: เร่ง Time-to-Market'], qualifications: ['วิศวะ/สถาปัตย์', 'ประสบการณ์ Renovate โรงแรม', 'เข้าใจ ROI'] },
+                    'coo': { role: 'COO - Platform', tagline: 'The Operator', overview: 'ดูแล Business Run รายวัน ตั้งแต่หาห้องจนถึงดูแลลูกค้า', responsibilities: ['Supply Acquisition: หาห้อง', 'Ops Flow: ระบบแม่บ้าน', 'QA: ตรวจห้องก่อนขาย'], qualifications: ['ประสบการณ์ Hospitality', 'Problem Solver'] },
+                    'cto': { role: 'CTO - Tech', tagline: 'The Enabler', overview: 'สร้าง Automation และเชื่อมต่อข้อมูลก่อสร้าง-บริการ', responsibilities: ['Platform Dev: Booking Engine', 'Ticketing System: แจ้งซ่อม', 'Data Analytics'], qualifications: ['Tech Stack Mgt', 'เข้าใจ Property Biz'] },
+                    'cfo': { role: 'CFO - Finance', tagline: 'The Controller', overview: 'ดูแลกระเป๋าเงินและ Transfer Pricing ระหว่าง BU', responsibilities: ['Cost Accounting', 'Asset Report', 'Tax & Compliance'], qualifications: ['Accounting Background', 'Real Estate Finance'] }
+                },
+                steps: {
+                    1: { title: '1. Renovation Feasibility', desc: 'Platform ส่งข้อมูลราคาคาดการณ์ให้ Construction ประเมินงบ เพื่อไม่ให้ลงทุนเกินตัว', kpi: 'KPI: Feasibility Accuracy' },
+                    2: { title: '2. Construction Phase', desc: 'ดำเนินการปรับปรุงเน้น Speed & Cost. QS คุมงบ PM คุมเวลา', kpi: 'KPI: Budget Variance & Time' },
+                    3: { title: '3. Handover & QA', desc: 'Ops เข้าตรวจรับงาน (QA) ต้องไม่มี Defect เพื่อพร้อมขายทันที', kpi: 'KPI: Handover Rate (100% in 24hrs)' },
+                    4: { title: '4. Live & Maintain', desc: 'ห้องเปิดขาย เมื่อมีของเสีย ระบบยิง Ticket ไปทีม Facility เข้าซ่อมตาม SLA', kpi: 'KPI: Response Time' }
+                }
+            },
+            en: {
+                depts: {
+                    'ceo': { title: 'Chief Executive Officer (CEO)', desc: 'Oversees vision and budget allocation between Tech and Construction units.', teams: ['Strategy', 'Investor Relations'] },
+                    'construction': { title: 'Construction & Renovation Unit', desc: 'Hard Services unit responsible for making assets "Rental Ready". Controls Cost, Time, Quality.', teams: ['Design', 'QS', 'Project Mgt', 'Facility'] },
+                    'platform': { title: 'Platform & Commercial Unit', desc: 'Main revenue generator. Manages Supply (Hosts) and Demand (Guests).', teams: ['Host Success', 'Guest Exp', 'Housekeeping', 'Marketing'] },
+                    'tech': { title: 'Technology & Product', desc: 'Builds automation tools (Enabler) to scale business. Develops Booking & PMS.', teams: ['Product', 'Engineering', 'Data', 'UX/UI'] },
+                    'finance': { title: 'Central Services', desc: 'Support unit. Manages segmented accounting and Legal/Compliance.', teams: ['Accounting', 'HR', 'Legal'] }
+                },
+                jds: {
+                    'hoc': { role: 'Head of Construction', tagline: 'The Builder', overview: 'Business-focused construction management. Turning assets into revenue quickly.', responsibilities: ['Renovation Strategy', 'Cost Control (CAPEX)', 'Accelerate Time-to-Market'], qualifications: ['Engineering/Arch Degree', 'Hotel Renovation Exp', 'ROI Understanding'] },
+                    'coo': { role: 'COO - Platform', tagline: 'The Operator', overview: 'Manages daily business run from acquisition to guest services.', responsibilities: ['Supply Acquisition', 'Ops Flow Design', 'QA before listing'], qualifications: ['Hospitality Exp', 'Problem Solver'] },
+                    'cto': { role: 'CTO - Tech', tagline: 'The Enabler', overview: 'Builds automation and bridges construction-service data.', responsibilities: ['Platform Dev', 'Ticketing System', 'Data Analytics'], qualifications: ['Tech Stack Mgt', 'Property Biz Logic'] },
+                    'cfo': { role: 'CFO - Finance', tagline: 'The Controller', overview: 'Manages funds and Transfer Pricing between BUs.', responsibilities: ['Cost Accounting', 'Asset Reporting', 'Tax & Compliance'], qualifications: ['Accounting Background', 'Real Estate Finance'] }
+                },
+                steps: {
+                    1: { title: '1. Renovation Feasibility', desc: 'Platform sends projected rental price for Construction to budget accordingly.', kpi: 'KPI: Feasibility Accuracy' },
+                    2: { title: '2. Construction Phase', desc: 'Renovation focused on Speed & Cost. QS controls budget, PM controls time.', kpi: 'KPI: Budget Variance & Time' },
+                    3: { title: '3. Handover & QA', desc: 'Ops performs QA check. Must be zero defect for immediate listing.', kpi: 'KPI: Handover Rate (100% in 24hrs)' },
+                    4: { title: '4. Live & Maintain', desc: 'Unit goes live. Defects trigger auto-tickets to Facility team per SLA.', kpi: 'KPI: Response Time' }
+                }
+            },
+            cn: {
+                depts: {
+                    'ceo': { title: '首席执行官 (CEO)', desc: '监督愿景并在科技与建筑部门之间分配预算。', teams: ['战略', '投资者关系'] },
+                    'construction': { title: '建筑与装修部', desc: '负责资产“可租赁化”的硬服务部门。控制成本、时间和质量。', teams: ['设计', '造价(QS)', '项目管理', '设施'] },
+                    'platform': { title: '平台与商务部', desc: '主要创收部门。管理供应端（房东）和需求端（房客）。', teams: ['房东成功', '房客体验', '客房服务', '市场营销'] },
+                    'tech': { title: '技术与产品部', desc: '构建自动化工具（赋能者）以扩展业务。开发预订和物业管理系统。', teams: ['产品', '工程', '数据', 'UX/UI'] },
+                    'finance': { title: '中央服务部', desc: '支持部门。管理分部门核算和法律/合规事务。', teams: ['会计', '人力资源', '法务'] }
+                },
+                jds: {
+                    'hoc': { role: '建筑总监', tagline: '建设者', overview: '以商业为核心的建筑管理。快速将资产转化为收入。', responsibilities: ['装修策略', '成本控制 (CAPEX)', '加快上市时间'], qualifications: ['工程/建筑学位', '酒店装修经验', '理解投资回报率'] },
+                    'coo': { role: '首席运营官 - 平台', tagline: '运营者', overview: '管理从获客到客户服务的日常业务运行。', responsibilities: ['供应获取', '运营流程设计', '上市前质检'], qualifications: ['酒店业经验', '问题解决者'] },
+                    'cto': { role: '首席技术官', tagline: '赋能者', overview: '构建自动化并连接建筑与服务数据。', responsibilities: ['平台开发', '工单系统', '数据分析'], qualifications: ['技术栈管理', '物业商业逻辑'] },
+                    'cfo': { role: '首席财务官', tagline: '控制者', overview: '管理资金及业务单元间的转移定价。', responsibilities: ['成本会计', '资产报告', '税务与合规'], qualifications: ['会计背景', '房地产金融'] }
+                },
+                steps: {
+                    1: { title: '1. 装修可行性', desc: '平台发送预计租金价格，供建筑部制定相应预算。', kpi: 'KPI: 可行性准确度' },
+                    2: { title: '2. 施工阶段', desc: '专注于速度与成本的装修。造价师控制预算，项目经理控制时间。', kpi: 'KPI: 预算差异与时间' },
+                    3: { title: '3. 移交与质检', desc: '运营部进行质检。必须零缺陷以便立即上市。', kpi: 'KPI: 移交率 (24小时内100%)' },
+                    4: { title: '4. 上线与维护', desc: '房源上线。缺陷触发自动工单至设施团队，按SLA执行。', kpi: 'KPI: 响应时间' }
+                }
+            }
+        };
+
+        let currentLang = 'th';
+        let currentRole = 'hoc'; // To maintain state during lang switch
+        let currentChart = null;
+
+        // --- Functions ---
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            
+            // Update Text Content
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            // Update Buttons State
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+
+            // Refresh Dynamic Content
+            document.getElementById('dept-title').textContent = translations[lang].dept_default_title;
+            document.getElementById('dept-desc').textContent = translations[lang].dept_default_desc;
+            document.getElementById('dept-teams').innerHTML = '';
+            
+            // Re-render current JD
+            renderJD(currentRole);
+
+            // Update Chart
+            updateChart();
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function selectDept(deptKey) {
+            const data = contentData[currentLang].depts[deptKey];
+            const titleEl = document.getElementById('dept-title');
+            const descEl = document.getElementById('dept-desc');
+            const teamsEl = document.getElementById('dept-teams');
+
+            const detailBox = document.getElementById('dept-detail');
+            detailBox.classList.remove('opacity-100');
+            detailBox.classList.add('opacity-50');
+
+            setTimeout(() => {
+                titleEl.textContent = data.title;
+                descEl.textContent = data.desc;
+                teamsEl.innerHTML = '';
+                data.teams.forEach(team => {
+                    const badge = document.createElement('span');
+                    badge.className = 'inline-block bg-white border border-slate-200 rounded-full px-3 py-1 text-sm text-slate-600 font-medium shadow-sm';
+                    badge.textContent = team;
+                    teamsEl.appendChild(badge);
+                });
+                detailBox.classList.remove('opacity-50');
+                detailBox.classList.add('opacity-100');
+            }, 200);
+        }
+
+        function renderJD(roleKey) {
+            currentRole = roleKey;
+            const data = contentData[currentLang].jds[roleKey];
+            const contentArea = document.getElementById('jd-content-area');
+            
+            // Colors mapping (consistent across langs)
+            const colors = {
+                'hoc': 'bg-amber-50 border-amber-500 text-amber-900',
+                'coo': 'bg-teal-50 border-teal-500 text-teal-900',
+                'cto': 'bg-blue-50 border-blue-500 text-blue-900',
+                'cfo': 'bg-purple-50 border-purple-500 text-purple-900'
+            };
+            const colorClass = colors[roleKey];
+
+            // Highlight active button
+            ['hoc', 'coo', 'cto', 'cfo'].forEach(key => {
+                const btn = document.getElementById(`btn-${key}`);
+                const isActive = key === roleKey;
+                // Reset basic styles
+                btn.className = 'w-full text-left px-4 py-3 rounded-lg border-l-4 transition ';
+                if (isActive) {
+                    btn.className += `${colorClass.split(' ')[0]} ${colorClass.split(' ')[2]} ${colorClass.split(' ')[1]} font-medium shadow-sm`;
+                } else {
+                    btn.className += 'text-slate-600 hover:bg-slate-50 border-transparent hover:border-slate-300';
+                }
+            });
+
+            const html = `
+                <div class="animate-fade-in">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-slate-800">${data.role}</h3>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${colorClass.replace('border-', 'bg-opacity-20 ')}">${data.tagline}</span>
+                    </div>
+                    <p class="text-slate-600 mb-6 italic border-l-4 border-slate-300 pl-4 py-1">${data.overview}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-slate-800 mb-3 flex items-center"><span class="mr-2">📋</span> Responsibilities</h4>
+                            <ul class="space-y-2">
+                                ${data.responsibilities.map(item => `<li class="flex items-start text-sm text-slate-600"><span class="mr-2 mt-1 text-teal-500">•</span>${item}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 mb-3 flex items-center"><span class="mr-2">🎓</span> Qualifications</h4>
+                            <ul class="space-y-2">
+                                ${data.qualifications.map(item => `<li class="flex items-start text-sm text-slate-600"><span class="mr-2 mt-1 text-amber-500">✓</span>${item}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            contentArea.innerHTML = html;
+        }
+
+        function showStepDetail(stepNum) {
+            const data = contentData[currentLang].steps[stepNum];
+            const panel = document.getElementById('step-detail-panel');
+            
+            document.getElementById('step-title').textContent = data.title;
+            document.getElementById('step-desc').textContent = data.desc;
+            document.getElementById('step-kpi').textContent = data.kpi;
+
+            panel.classList.remove('hidden');
+            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function updateChart() {
+            if (currentChart) {
+                currentChart.destroy();
+            }
+
+            const ctx = document.getElementById('kpiChart').getContext('2d');
+            const labels = translations[currentLang];
+
+            currentChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Project A (Fast)', 'Project B (Avg)', 'Project C (Slow)'],
+                    datasets: [
+                        {
+                            label: labels.chart_label_days,
+                            data: [30, 45, 60],
+                            backgroundColor: 'rgba(245, 158, 11, 0.7)',
+                            order: 2
+                        },
+                        {
+                            label: labels.chart_label_rev,
+                            data: [100, 80, 50],
+                            borderColor: 'rgba(20, 184, 166, 1)',
+                            backgroundColor: 'rgba(20, 184, 166, 0.1)',
+                            type: 'line',
+                            order: 1,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage('th'); // Default to Thai
+        });
+
+    </script>
+</body>
+</html>
